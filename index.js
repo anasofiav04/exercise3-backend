@@ -1,9 +1,11 @@
 import express from "express";
 import { connectDB } from "./db.js";
 import { Card } from "./models/Cards.js";
+import cors from "cors";
 const app = express();
 connectDB();
 
+app.use(cors());
 app.use(express.json());
 
 app.post("/createCards", async (req, res) => {
@@ -74,21 +76,6 @@ app.put("/updateCard/:id", async (req, res) => {
     res.status(500).json({ message: "Error updating card" });
   }
 });
-
-// app.post("/send", (req, res) => {
-//   const { user, email } = req.body;
-//   console.log("Datos recibidos:" + user + "" + email);
-
-//   res.status(200).send("Data received succesfully");
-// });
-
-// app.get("/hello", (req, res) => {
-//   res.status(200).send("Hola mundo desde Node JS");
-// });
-
-// app.get("/hola", (req, res) => {
-//   res.status(200).send("Hola world");
-// });
 
 app.listen(3000, () => {
   console.log("Servidor ejecutandose en https://localhost:3000");
